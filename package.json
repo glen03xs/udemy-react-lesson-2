@@ -1,0 +1,14 @@
+{
+  "name": "udemy-complete-react-lesson",
+  "version": "1.0.0",
+  "description": "Udemy React Lesson",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Glen Nepomuceno",
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.16.2"
+  }
+}
