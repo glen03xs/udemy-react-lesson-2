@@ -16,20 +16,30 @@ const GreeterForm = React.createClass({
         onFormSubmit: function(e) {
             e.preventDefault();
 
+            let updates = {};
             const name = this.refs.name.value;
+            const mood = this.refs.mood.value;
 
             if (name.length > 0) {
                 this.refs.name.value = "";
-                this.props.onNewName(name);
+                updates.name = name;
             }
+
+            if (mood.length > 0) {
+                this.refs.mood.value = "";
+                updates.mood = mood;                
+            }
+
+            this.props.onNewData(updates);
 
         },
         render: function() {
         return (
             <div>
                 <form onSubmit={this.onFormSubmit}>
-                    <input type="text" ref="name"/>
-                    <button>Set Name</button>
+                    <p><input type="text" ref="name" placeholder="Name"/></p>
+                    <p><textarea ref="mood" placeholder="Mood"></textarea></p>
+                    <button>Done</button>
                 </form>
             </div>
         );
@@ -46,23 +56,22 @@ const Greeter = React.createClass( {
 
     getInitialState: function() {
         return {
-            name: this.props.name
+            name: this.props.name,
+            mood: this.props.mood
         }
     },
 
-    handleNewName: function(name) {
-        this.setState({
-            name: name
-        });
+    handleNewData: function(updates) {
+        this.setState(updates);
     },
 
     render: function() {
         const babyName = this.state.name;
-        const theMood =  this.props.mood;
+        const theMood =  this.state.mood;
         return (
             <div>
                 <GreeterMessage name={babyName} mood={theMood}  />
-                <GreeterForm onNewName={this.handleNewName}/>
+                <GreeterForm onNewData={this.handleNewData}/>
             </div>
         );
     }
