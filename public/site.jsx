@@ -1,8 +1,46 @@
-var Greeter = React.createClass( {
+const GreeterMessage = React.createClass({
+    render: function() {
+        const name = this.props.name;
+        const mood = this.props.mood;
+
+        return (
+            <div>
+                <h1>Hello {name}!</h1>
+                <p>I am {mood} right Now!</p>
+            </div>
+        );
+    }
+});
+
+const GreeterForm = React.createClass({
+        onFormSubmit: function(e) {
+            e.preventDefault();
+
+            const name = this.refs.name.value;
+
+            if (name.length > 0) {
+                this.refs.name.value = "";
+                this.props.onNewName(name);
+            }
+
+        },
+        render: function() {
+        return (
+            <div>
+                <form onSubmit={this.onFormSubmit}>
+                    <input type="text" ref="name"/>
+                    <button>Set Name</button>
+                </form>
+            </div>
+        );
+    }
+});
+
+const Greeter = React.createClass( {
     getDefaultProps: function() {
         return {
             name: 'Jon React',
-            message: 'This is a default Message'
+            mood: 'Happy'
         };
     },
 
@@ -11,41 +49,26 @@ var Greeter = React.createClass( {
             name: this.props.name
         }
     },
-    onButtonClick: function(e) {
-        e.preventDefault();
 
-        const refsName = this.refs.name;
-
-        const name = refsName.value;
-        refsName.value = "";
-
-        if (typeof name === 'string' && name.length > 0) {
-            this.setState({
-                name: name
-            });
-        }
+    handleNewName: function(name) {
+        this.setState({
+            name: name
+        });
     },
 
     render: function() {
-        const name = this.state.name;
-        const message =  this.props.message;
+        const babyName = this.state.name;
+        const theMood =  this.props.mood;
         return (
             <div>
-                <h1>Hello {name}!</h1>
-                <p>{message}</p>
-                <form onSubmit={this.onButtonClick}>
-                <input type="text" ref="name"/>
-                <button>Set Name</button>
-            </form>
+                <GreeterMessage name={babyName} mood={theMood}  />
+                <GreeterForm onNewName={this.handleNewName}/>
             </div>
         );
     }
 });
 
-const babyName = "Baby Jon"; 
-const msg = "This is a component";
-
 ReactDOM.render(
-    <Greeter name={babyName} message={msg}/>,
+    <Greeter/>,
     document.getElementById('site')
 );
