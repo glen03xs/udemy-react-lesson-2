@@ -1,3 +1,7 @@
+const React = require('react');
+const ReactDOM = require('react-dom');
+
+
 const GreeterMessage = React.createClass({
     render: function() {
         const name = this.props.name;
@@ -79,5 +83,5 @@ const Greeter = React.createClass( {
 
 ReactDOM.render(
     <Greeter/>,
-    document.getElementById('site')
+    document.getElementById('app')
 );
