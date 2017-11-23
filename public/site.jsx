@@ -39,7 +39,7 @@ const GreeterForm = React.createClass({
                 <form onSubmit={this.onFormSubmit}>
                     <p><input type="text" ref="name" placeholder="Name"/></p>
                     <p><textarea ref="mood" placeholder="Mood"></textarea></p>
-                    <button>Done</button>
+                    <button>Submit</button>
                 </form>
             </div>
         );
